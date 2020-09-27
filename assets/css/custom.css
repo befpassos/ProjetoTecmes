@@ -1,0 +1,84 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+body{
+
+}
+
+div#corpo-form{
+    background-color: #fff;
+    max-width: 500px;
+    width: 100%;
+    padding: 5px 10px 30px 10px;
+    height: auto;
+    border-radius: 5px;
+}
+#corpo-form form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+#corpo-form a, #corpo-form-cad a{
+    color: #118AB2;
+    text-decoration: none;
+    text-align: center;
+    display: block;
+}
+
+#corpo-form  h1, #corpo-form-cad h1 {
+    color: #111;
+    font-size: 3em;
+    text-align: center;
+    padding: 10px;
+}
+
+div#corpo-form-cad{
+    max-width: 500px;
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #fff;
+}
+
+.msg {
+    max-width: 500px;
+    width: 100%;
+    margin: 10px auto;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 10px;
+    border-radius: 5px;
+}
+.msg-sucesso{
+    background-color: #06D6A0;
+}
+
+.msg-erro{
+    background-color: #EF476F;
+}
+
+.msg-alert{
+    background-color: #FFD166;
+}
+
+.msg h6 i{
+    margin-top: -5px;
+}
+
+
+/* NAVBAR */
+nav{
+    background-color: #073B4C;
+}
+
+@media only screen and (min-width: 993px){
+    nav a.sidenav-trigger { 
+        display: block  ;
+    }
+} 
+/* END NAVBAR */

@@ -1,6 +1,7 @@
 <?php
     require_once "../classes/produtos.php";
     $produto= new Produtos();
+    $consulta = $produto->consultarProduto();
 
     session_start();
     if(!isset($_SESSION['id_usuario']))
@@ -13,7 +14,7 @@
 <html lang="pt-br">
 <head>
     <meta charset="utf-8">
-    <title>LOGIN | TECMES</title>
+    <title>TECMES | Cadastro</title>
     <?php include('../template/header.php') ?>
     <link rel="stylesheet" type="text/css" href="../assets/css/custom.css">
 </head>
@@ -27,6 +28,7 @@
                 <input type="text" name="nome" id="nome" placeholder="Digite o nome do produto" maxlength="45">
                 <label for="nome">Produto</label>
             </div>
+            <a href="produtos.php" class="btn-flat">Voltar</a>
             <button class="btn blue col s12 m6 l3 right" type="submit" value="Cadastrar">Cadastrar</button>
         </div>
     </form>

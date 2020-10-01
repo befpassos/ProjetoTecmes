@@ -1,5 +1,5 @@
 <?php
-require "database.php";
+require_once "database.php";
 
 class Produtos extends DataBase
 {
@@ -52,6 +52,7 @@ class Produtos extends DataBase
             return true;
         }else
         {
+            print_r($sql->errorInfo());
             return false;
         }
     }
@@ -75,19 +76,22 @@ class Produtos extends DataBase
         $result = $this->pdo->query($sql);
         $rows = $result->fetchAll(PDO::FETCH_ASSOC);
 
-        print_r($rows);
+        return $rows;
     }
 
-    public function consultaProduto($codProduto)
+    public function consultarByID($codProduto)
     {
-        $sql = "SELECT * FROM produto WHERE cod_produto = :cp";
+        $sql = $this->pdo->prepare("SELECT * FROM produto WHERE cod_produto = :cp");
         $sql->bindValue(":cp",$codProduto);
-        $result = $this->pdo->query($sql);
-        $rows = $result->fetchAll(PDO::FETCH_ASSOC);
+        $sql->execute();
+        $rows = $sql->fetchAll(PDO::FETCH_ASSOC);
 
-        print_r($rows);
+        return $rows;
     }
 }
    /* $prod = new Produtos();
     var_dump($prod->cadastrarProduto("Ferro"));*/
+
+    /*$prod = new Produtos();
+    var_dump($prod->consultarProduto());*/
 ?>

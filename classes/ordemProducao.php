@@ -1,5 +1,5 @@
 <?php
-require "database.php";
+require_once "database.php";
 
 class OrdemProducao extends DataBase
 {
@@ -8,17 +8,13 @@ class OrdemProducao extends DataBase
         parent::__construct();
     }
 
-    public function cadastrarOP($codProduto, $nomeCliente, $nomeProduto, $quantidade, $usuario)
+    public function cadastrarOP($ordemProducao,$codProduto, $nomeCliente, $quantidade, $usuario)
     {
-        // if($this->verificarOP($codProduto)) {
-        //     return false;
-        // }
-
-        $sql = $this->pdo->prepare("INSERT INTO ordem_producao (cod_produto, nome_cliente, nome_produto, quantidade,usuario)
-                                            VALUES (:cp, :nc, :np, :q, :u)");
+        $sql = $this->pdo->prepare("INSERT INTO ordem_producao (ordem_producao,cod_produto, nome_cliente, quantidade,usuario)
+                                            VALUES (:op, :cp, :nc, :q, :u)");
+        $sql->bindValue(":op",$ordemProducao);
         $sql->bindValue(":cp",$codProduto);      
         $sql->bindValue(":nc",$nomeCliente);
-        $sql->bindValue(":np",$nomeProduto);
         $sql->bindValue(":q",$quantidade);
         $sql->bindValue(":u",$usuario);
         if($sql->execute()) {
@@ -30,21 +26,20 @@ class OrdemProducao extends DataBase
         
     }
 
-    public function editarOP($ordemProducao,$codProduto, $nomeCliente, $nomeProduto, $quantidade, $status)
+    public function editarOP($ordemProducao, $codProduto, $nomeCliente, $quantidade, $status)
     {
         $dataAlteracao = date("Y-m-d");
 
         $sql = $this->pdo->prepare("
             UPDATE ordem_producao SET 
-            cod_produto = :cp, nome_cliente = :nc, 
-            nome_produto = :np, quantidade = :q, status = :s,
+            ordem_producao = :op, cod_produto = :cp, nome_cliente = :nc, 
+            quantidade = :q, status = :s,
             data_alteracao = :da
             WHERE 
             ordem_producao = :op"
         );
         $sql->bindValue(":cp",$codProduto);
         $sql->bindValue(":nc",$nomeCliente);
-        $sql->bindValue(":np",$nomeProduto);
         $sql->bindValue(":q",$quantidade);
         $sql->bindValue(":s",$status);
         $sql->bindValue(":da",$dataAlteracao);
@@ -68,13 +63,17 @@ class OrdemProducao extends DataBase
             return true;
         }else
         {
+            print_r($sql->errorInfo());
             return false;
         }
     }
 
     public function consultarOP()
     {
-        $sql = "SELECT * FROM ordem_producao";
+        $sql = "SELECT * , date_format(o.data_cadastro,'%d/%m/%Y') as data_cadastro, s.id as id_status
+                FROM ordem_producao as o, status as s, produto as p
+                WHERE o.cod_produto = p.cod_produto
+                AND o.status = s.id";
         $result = $this->pdo->query($sql);
         $rows = $result->fetchAll(PDO::FETCH_ASSOC);
 
@@ -83,10 +82,37 @@ class OrdemProducao extends DataBase
 
     public function consultarById($ordemProducao)
     {
-        $sql = $this->pdo->prepare("SELECT * FROM ordem_producao WHERE ordem_producao = :op");
+        $sql = $this->pdo->prepare("SELECT * , s.id as id_status
+                                    FROM ordem_producao as o, produto as p, status as s
+                                    WHERE o.ordem_producao = :op
+                                    AND o.cod_produto = p.cod_produto
+                                    AND o.status = s.id");
         $sql->bindValue(":op",$ordemProducao);
         $sql->execute();
         $rows = $sql->fetchAll(PDO::FETCH_ASSOC);
+        return $rows;
+    }
+
+    public function consultarByStatus()
+    {
+        $sql = "SELECT * FROM ordem_producao as o, status as s, produto as p
+                WHERE o.status = s.id
+                AND o.status = '3'
+                AND o.cod_produto = p.cod_produto";
+        $result = $this->pdo->query($sql);
+        $rows = $result->fetchAll(PDO::FETCH_ASSOC);
+        return $rows;
+    }
+
+    public function consultarStatusOP()
+    {
+        $sql = "SELECT *, date_format(o.data_cadastro,'%d/%m/%Y') as data_cadastro 
+                FROM ordem_producao as o, status as s, produto as p
+                WHERE o.status = s.id
+                AND o.status = '1'
+                AND o.cod_produto = p.cod_produto";
+        $result = $this->pdo->query($sql);
+        $rows = $result->fetchAll(PDO::FETCH_ASSOC);
         return $rows;
     }
 
@@ -105,7 +131,7 @@ class OrdemProducao extends DataBase
 
     //UPDATE
     // $op = new OrdemProducao();
-    // var_dump($op->editarOP("3","1","MatheusOlimpio","Telha","4","1"));
+    // var_dump($op->editarOP("2","1","Matheus O","Telha Laranja","4","1"));
 
     //DELETE 
     // $op = new OrdemProducao();

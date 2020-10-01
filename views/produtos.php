@@ -1,18 +1,28 @@
 <?php
-    require_once "../classes/produtos.php";
-    $produto= new Produtos();
+require_once "../classes/produtos.php";
 
-    session_start();
-    if(!isset($_SESSION['id_usuario']))
-    {
-        header("location: index.php");
-        exit;
-    }
+session_start();
+if(!isset($_SESSION['id_usuario'])) {
+    header("location: index.php");
+    exit;
+}
+
+$produto= new Produtos();
+$consulta = $produto->consultarProduto();
+if(isset($_GET['codProduto'])) {
+    $codigo = addslashes($_GET['codProduto']);
+    $produto->deletarProduto($codigo);
+
+    header("Location: produtos.php");
+}
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <!--<meta http-equiv="refresh" content="0.5; url='produtos.php'">!-->
     <title>TECMES | Produtos</title>
     <?php include('../template/header.php') ?>
 </head>
@@ -26,38 +36,28 @@
         <table class="responsive-table highlight centered">
         <thead>
                 <tr>
-                    <th>Número</th>
+                    <th>Cód. Produto</th>
                     <th>Produto</th>
                     <th>Opção</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td>
-                        <i class="small material-icons left ">edit</i>
-                        <i class="small material-icons left ">delete</i>
-                    </td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
+                <?php foreach($consulta as $row) {?>
+                    <tr>
+                        <td><?php echo $row['cod_produto']?></td>
+                        <td><?php echo $row['nome_produto']?></td>
+                        <td>
+                            <a href="editarProduto.php?codigo=<?php echo $row['cod_produto'] ?>"><i class="small material-icons center ">edit</i></a>
+                            <a onclick="return confirm('Você realmente deseja excluir este produto?')" href="produtos.php?codProduto=<?php echo $row['cod_produto'] ?>"><i class="small material-icons center ">delete</i></a>
+                        </td>
+                    </tr>
+                <?php } ?>
             </tbody>
         </table>
     </div>
 <?php include('../template/footer.php') ?>
+<?php
+
+?>
 </body>
 </html>

@@ -25,15 +25,15 @@ class Vendas extends DataBase
         }
     }
 
-    public function consultarVenda($codVenda)
+    public function consultarVenda()
     {
-        $sql = $this->pdo->prepare("SELECT * FROM venda 
-                                    WHERE cod_venda = :cv");
-        $sql->bindValue(":cv",$codVenda);
-        $sql->execute();
-        $rows = $sql->fetchAll(PDO::FETCH_ASSOC);
+        $sql = "SELECT * FROM venda";
+        $result = $this->pdo->query($sql);
+        $rows = $result->fetchAll(PDO::FETCH_ASSOC);
+
         return $rows;
     }
+
 }
 
 

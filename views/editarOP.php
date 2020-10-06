@@ -10,40 +10,14 @@
         exit;
     }
 
+    $op = new OrdemProducao();
+    $produtos = new Produtos();
+    $status = new Status();
+    $ordem = $_GET['ordem'];
+    $consulta = $op->consultarById($ordem);
+    $prod = $produtos->consultarProduto();
+    $status_consulta = $status->consultarStatus();
 
-    if(isset($_GET['ordem']) && !empty($_GET['ordem'])) {
-        $op = new OrdemProducao();
-        $produtos = new Produtos();
-        $status = new Status();
-        $ordem = $_GET['ordem'];
-        $consulta = $op->consultarById($ordem);
-        $prod = $produtos->consultarProduto();
-        $status_consulta = $status->consultarStatus();
-        
-        if(isset($_POST['cod_produto']) && !empty($_POST['cod_produto'])){
-        
-            $codProduto  = addslashes($_POST['cod_produto']);
-            $nomeCliente = addslashes($_POST['nomeCliente']);
-            $quantidade  = addslashes($_POST['quantidade']);
-            $status      = addslashes($_POST['status']);
-            if(!empty($codProduto) && !empty($nomeCliente) && !empty($quantidade) && !empty($status)) {
-                if($op->editarOP($ordem, $codProduto, $nomeCliente, $quantidade, $status)) {
-                    ?>
-                    <div class="msg msg-sucesso">
-                        <h6><i class="small material-icons left ">check</i>Editado com Sucesso!</h6>
-                    </div>
-                    <?php
-                    header("Location: editarOP.php?ordem={$ordem}");
-                }
-            }else{
-                ?>
-                    <div class="msg-erro">
-                        Preencha todos os campos!
-                    </div>
-                <?php
-            }
-        }
-    }
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -60,7 +34,7 @@
     <form method="post" >
         <div class="row">
             <div class="input-field col s12">
-                <input type="text" name="ordem_producao" id="ordem_producao" value="<?php echo $consulta[0]['ordem_producao'] ?>">
+                <input readonly type="text" name="ordem_producao" id="ordem_producao" value="<?php echo $consulta[0]['ordem_producao'] ?>">
                 <label class="active" for="ordem_producao">Ordem de Produção</label>
             </div>
             <div class="input-field col s12">
@@ -105,5 +79,34 @@
     </form>
 </div>
 <?php include('../template/footer.php') ?>
+<?php
+if(isset($_GET['ordem']) && !empty($_GET['ordem'])) {
+    if(isset($_POST['cod_produto']) && !empty($_POST['cod_produto'])){
+    
+        $codProduto  = addslashes($_POST['cod_produto']);
+        $nomeCliente = addslashes($_POST['nomeCliente']);
+        $quantidade  = addslashes($_POST['quantidade']);
+        $status      = addslashes($_POST['status']);
+        if(!empty($codProduto) && !empty($nomeCliente) && !empty($quantidade) && !empty($status)) {
+            if($op->editarOP($ordem, $codProduto, $nomeCliente, $quantidade, $status)) {
+                ?>
+                <div class="msg msg-sucesso">
+                    <h6><i class="small material-icons left ">check</i>Editado com Sucesso!</h6>
+                </div>
+                <?php
+                echo '<script>window.location.href = ordemProducao.php</script>';
+                
+            }
+        }else{
+            ?>
+                <div class="msg-erro">
+                    Preencha todos os campos!
+                </div>
+            <?php
+        }
+    }
+}
+?>
+
 </body>
 </html>

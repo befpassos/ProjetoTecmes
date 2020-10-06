@@ -63,6 +63,10 @@ class ProducaoLiberada extends database
         $sql->bindValue(":op",$ordemProducao);
         $sql->execute();
         $rows = $sql->fetchAll(PDO::FETCH_ASSOC);
+        if(empty($rows)){
+            return 0;
+        }
+        
         return $rows[0]['ordem_fabricacao'];
 
         

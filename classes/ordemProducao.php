@@ -8,11 +8,10 @@ class OrdemProducao extends DataBase
         parent::__construct();
     }
 
-    public function cadastrarOP($ordemProducao,$codProduto, $nomeCliente, $quantidade, $usuario)
+    public function cadastrarOP($codProduto, $nomeCliente, $quantidade, $usuario)
     {
-        $sql = $this->pdo->prepare("INSERT INTO ordem_producao (ordem_producao,cod_produto, nome_cliente, quantidade,usuario)
-                                            VALUES (:op, :cp, :nc, :q, :u)");
-        $sql->bindValue(":op",$ordemProducao);
+        $sql = $this->pdo->prepare("INSERT INTO ordem_producao (cod_produto, nome_cliente, quantidade,usuario)
+                                            VALUES (:cp, :nc, :q, :u)");
         $sql->bindValue(":cp",$codProduto);      
         $sql->bindValue(":nc",$nomeCliente);
         $sql->bindValue(":q",$quantidade);
@@ -98,7 +97,7 @@ class OrdemProducao extends DataBase
         $sql = "SELECT * FROM ordem_producao as o, status as s, produto as p
                 WHERE o.status = s.id
                 AND o.status = '3'
-                AND o.cod_produto = p.cod_produto";
+                AND o.cod_produto = p.cod_produto and o.ordem_producao not in (SELECT ordem_producao FROM venda)";
         $result = $this->pdo->query($sql);
         $rows = $result->fetchAll(PDO::FETCH_ASSOC);
         return $rows;

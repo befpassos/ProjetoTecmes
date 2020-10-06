@@ -28,7 +28,7 @@
 <body>
 <?php include('../template/navbar.php') ?> 
 <div class="container">
-    <h1>Editar OP</h1>
+    <h1>Editar OP em Produção</h1>
     <form method="post" >
         <div class="row">
             <div class="input-field col s12">
@@ -79,7 +79,7 @@
             if($quantidadeAtual > $qntdRequisitada) {
                 ?>
                 <div class="msg msg-alert">
-                    <h6><i class="small material-icons left ">warning</i>Quantidade a produzir é maior que a quantidade requisitada!</h6>
+                    <h6><i class="small material-icons left ">warning</i>Quantidade à produzir é maior que a quantidade requisitada!</h6>
                 </div>
                 <?php
                 return false;
@@ -91,7 +91,8 @@
                         <h6><i class="small material-icons left ">check</i>Editado com Sucesso!</h6>
                     </div>
                 <?php
-                header("Location: editarProdLiberada.php?idFabricacao={$id}&ordemProducao={$ordem}");
+                echo '<script>window.location.href = producaoLiberada.php?ordemProducao='.$ordem.'</script>';
+                //header("Location: producaoLiberada.php?ordemProducao={$ordem}");
             }
         }else{
             ?>

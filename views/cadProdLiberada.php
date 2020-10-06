@@ -9,6 +9,7 @@
     $consulta_op = $op->consultarOP();
     $ultima_ordem_fabricacao = $prodLiberada->consultarUltimaOrdemFabricacao($ordem) + 1;
 
+
     session_start();
     if(!isset($_SESSION['id_usuario']))
     {
@@ -31,7 +32,7 @@
     <form method="post">
         <div class="row">
             <div class="input-field col s12">
-                <input readonly type="text" name="ordemProducao" id="ordemProducao" value="<?php echo $consulta_op_liberada[0]['ordem_producao']?>">
+                <input readonly type="text" name="ordemProducao" id="ordemProducao" value="<?php echo (!isset($consulta_op_liberada[0]['ordem_producao'])) ? $ordem : $consulta_op_liberada[0]['ordem_producao']?>">
                 <label class="active" for="ordemProducao">Ordem de Produção</label>
             </div>
             <div class="input-field col s12">
@@ -43,7 +44,7 @@
                 <label class="active" for="qntdRequisitada">Quantidade Requisitada</label>
             </div>
             <div class="input-field col s12 m4 l3">
-                <input type="text" name="qntdProduzida" id="qntdProduzida" class="red-text" value="<?php echo $consulta_op_liberada[0]['qntd_produzida']?>" placeholder="Digite a quantidade produzida" maxlength="11">
+                <input readonly type="text" name="qntdProduzida" id="qntdProduzida" class="red-text" value="<?php echo (!isset($consulta_op_liberada[0]['qntd_produzida'])) ? 0 : $consulta_op_liberada[0]['qntd_produzida']?>" placeholder="Digite a quantidade produzida" maxlength="11">
                 <label class="active" for="qntdProduzida">Quantidade Produzida</label>
             </div>
             <div class="input-field col s12 m4 l3">
@@ -63,7 +64,7 @@
 </div>
 <?php 
 if(isset($_POST['ordemProducao'])) {
-    //var_dump($_POST);
+  
     $ordemProducao   = addslashes($_POST['ordemProducao']);
     $ordemFabricacao = addslashes($_POST['ordemFabricacao']);
     $qntdRequisitada = addslashes($_POST['qntdRequisitada']);
@@ -71,14 +72,14 @@ if(isset($_POST['ordemProducao'])) {
     $qntdProduzida   = addslashes($_POST['qntdProduzida']);
     $maquina         = addslashes($_POST['maquina']);
     $quantidadeAtual = $qntdAProduzir + $qntdProduzida;
-
+    //var_dump(isset($qntdProduzida));
     if(!empty($ordemProducao) && !empty($ordemFabricacao) && !empty($qntdRequisitada) && 
-        !empty($qntdAProduzir) && !empty($qntdProduzida) && !empty($maquina)) {
+        !empty($qntdAProduzir) && isset($qntdProduzida) && !empty($maquina)) {
         
         if($quantidadeAtual > $qntdRequisitada) {
             ?>
             <div class="msg msg-alert">
-                <h6><i class="small material-icons left ">warning</i>Quantidade a produzir é maior que a quantidade requisitada!</h6>
+                <h6><i class="small material-icons left ">warning</i>Quantidade à produzir é maior que a quantidade requisitada!</h6>
             </div>
             <?php
             return false;
@@ -86,7 +87,7 @@ if(isset($_POST['ordemProducao'])) {
 
         if($prodLiberada->msgErro == ""){
             if($prodLiberada->cadastrarProducao($ordemProducao,$ordemFabricacao,$qntdRequisitada,
-                                                $qntdAProduzir,$qntdProduzida,$maquina)){
+                                                $qntdAProduzir,$quantidadeAtual,$maquina)){
                 ?>
                 <div class="msg msg-sucesso">
                     <h6><i class="small material-icons left ">check</i>Cadastrado com Sucesso!</h6>

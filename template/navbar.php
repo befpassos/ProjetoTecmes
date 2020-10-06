@@ -19,10 +19,16 @@
       <a href="#name"><span class="black-text name"><?= $_SESSION['nome'] ?></span></a>
       <a href="#email"><span class="black-text email"><?= $_SESSION['email'] ?></span></a>
     </div></li>
-    <li><a href="/ProjetoTecmes/views/ordemProducao.php"><i class="material-icons">add_circle</i>Painel de OP</a></li>
     <li><a href="/ProjetoTecmes/views/produtos.php"><i class="material-icons">widgets</i>Produtos</a></li>
-    <li><a href="/ProjetoTecmes/views/consultaProducaoOp.php"><i class="material-icons">assignment</i>Produção</a></li>
-    <li><a href="/ProjetoTecmes/views/vendas.php"><i class="material-icons">show_chart</i>Vendas</a></li>
+    <li><a href="/ProjetoTecmes/views/ordemProducao.php"><i class="material-icons">add_circle</i>Painel de OP</a></li>
+    <li>
+        <a href="/ProjetoTecmes/views/consultaProducaoOp.php"><i class="material-icons">assignment</i>Produção</a>
+    </li>
+    <li><a href="/ProjetoTecmes/views/vendas.php" class="dropdown-trigger" data-target="dropdown1"><i class="material-icons">show_chart</i>Vendas</a></li>
+    <ul id='dropdown1' class='dropdown-content'>
+            <li><a href="/ProjetoTecmes/views/vendas.php">Painel de Vendas</a></li>
+            <li><a href="/ProjetoTecmes/views/consultaPainelVendas.php">OPs Finalizadas</a></li>
+    </ul>
     <li><a href="/ProjetoTecmes/Login/logout.php"><i class="material-icons">exit_to_app</i>Sair</a></li>
 
     <!-- <li><a class="subheader">Subheader</a></li>

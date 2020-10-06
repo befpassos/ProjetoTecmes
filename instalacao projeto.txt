@@ -1,0 +1,12 @@
+Passo a Passo da Instalação do Projeto:
+1 - Instalar a ferramenta WAMP ou XAMPP para efetuar a conexão com o banco de dados.
+
+2- Feita a instalação, será necessário adicionar o projeto dentro da pasta referente a ferramenta:
+	- No caso da ferramenta WAMP, é necessário colar o projeto dentro da 	pasta "/www".
+	- No XAMPP, é necessário colar o projeto dentro da pasta "/htdocs".
+
+3- Após isso, configurar a base de dados e as tabelas no PHPMyAdmin
+	*Observação: A base de dados e as tabelas estarão em outro arquivo .txt
+
+4 - Feita toda a configuração necessário, o projeto já poderá ser testado, 
+	basta acessá-lo por meio do link: localhost/ProjetoTecmes

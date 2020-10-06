@@ -48,6 +48,7 @@
                 <input type="password" id="password" name="confSenha" placeholder="Confirme sua senha">
                 <label for="password">Confirmação de Senha</label>
             </div>
+            <a href="/ProjetoTecmes/" class="btn-flat left">Voltar</a>
             <button class="btn blue col s12 m6 l3 right" type="submit" value="Cadastrar">Cadastrar</button>
         </div>
     </form>

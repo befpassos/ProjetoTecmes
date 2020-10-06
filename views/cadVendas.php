@@ -29,24 +29,24 @@ $vendas = new Vendas();
     <h1>Liberar Venda</h1>
     <form method="post">
         <div class="row">
-            <div class="input-field col s12">
-                <input type="text" name="ordemProducao" id="ordemProducao" value="<?php echo $consulta[0]['ordem_producao']?>" placeholder="Digite a ordem de produção" maxlength="11">
+            <div class="input-field col s12 ">
+                <input readonly type="text" name="ordemProducao" id="ordemProducao" value="<?php echo $consulta[0]['ordem_producao']?>" placeholder="Digite a ordem de produção" maxlength="11">
                 <label class="active" for="ordemProducao">Ordem de Produção</label>
             </div>
-            <div class="input-field col s12">
-                <input type="text" name="codigo" id="codigo" value="<?php echo $consulta[0]['cod_produto']?>" placeholder="Digite o codigo do produto" maxlength="11">
+            <div class="input-field col s12 m4 l3">
+                <input readonly type="text" name="codigo" id="codigo" value="<?php echo $consulta[0]['cod_produto']?>" placeholder="Digite o codigo do produto" maxlength="11">
                 <label class="active" for="codigo">Código do Produto</label>
             </div>
-            <div class="input-field col s12">
-                <input type="text" name="produto" id="produto" value="<?php echo $consulta[0]['nome_produto']?>" placeholder="Digite o codigo do produto" maxlength="45">
+            <div class="input-field col s12 m4 l3">
+                <input readonly type="text" name="produto" id="produto" value="<?php echo $consulta[0]['nome_produto']?>" placeholder="Digite o codigo do produto" maxlength="45">
                 <label class="active" for="produto">Produto</label>
             </div>
-            <div class="input-field col s12">
-                <input type="text" name="nomeCliente" id="nomeCliente" value="<?php echo $consulta[0]['nome_cliente']?>" placeholder="Digite o nome do cliente" maxlength="45">
+            <div class="input-field col s12 m4 l3">
+                <input readonly type="text" name="nomeCliente" id="nomeCliente" value="<?php echo $consulta[0]['nome_cliente']?>" placeholder="Digite o nome do cliente" maxlength="45">
                 <label class="active" for="nomeCliente">Cliente</label>
             </div>
-            <div class="input-field col s12">
-                <input type="text" name="quantidade" id="quantidade" value="<?php echo $consulta[0]['quantidade']?>" placeholder="Digite a quantidade" maxlength="11">
+            <div class="input-field col s12 m4 l3">
+                <input readonly type="text" name="quantidade" id="quantidade" value="<?php echo $consulta[0]['quantidade']?>" placeholder="Digite a quantidade" maxlength="11">
                 <label class="active" for="quantidade">Quantidade</label>
             </div>
             <a href="vendas.php" class="btn-flat">Voltar</a>

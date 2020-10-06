@@ -34,13 +34,13 @@
         <table class="responsive-table highlight centered">
             <thead>
                 <tr>
-                    <th>Ordem de Produção</th>
-                    <th>Cód. do Produto</th>
-                    <th>Cliente</th>
+                    <th>Ordem Produção</th>
+                    <th>Cód.Produto</th>
                     <th>Produto</th>
                     <th>Quantidade</th>
+                    <th>Cliente</th>
+                    <th>Responsável</th>
                     <th>Data</th>
-                    <th>Usuário Resp.</th>
                     <th>Status</th>
                     <th>Opção</th>
                 </tr>
@@ -50,11 +50,11 @@
                 <tr>
                     <td><?php echo $row['ordem_producao']?></td>
                     <td><?php echo $row['cod_produto']?></td>
-                    <td><?php echo $row['nome_cliente']?></td>
                     <td><?php echo $row['nome_produto']?></td>
                     <td><?php echo $row['quantidade']?></td>
-                    <td><?php echo $row['data_cadastro']?></td>
+                    <td><?php echo $row['nome_cliente']?></td>
                     <td><?php echo $row['usuario']?></td>
+                    <td><?php echo $row['data_cadastro']?></td>
                     <td><?php echo $row['status']?></td>
                     <td>
                     <a href="editarOP.php?ordem=<?php echo $row['ordem_producao'] ?>"><i class="small material-icons center ">edit</i></a>

@@ -27,10 +27,10 @@
     <h1>Nova Ordem de Produção</h1>
     <form method="post">
         <div class="row">
-            <div class="input-field col s12">
+           <!-- <div class="input-field col s12">
                 <input type="text" name="ordemProducao" id="ordemProducao" placeholder="Digite a ordem de produção" maxlength="11">
                 <label for="ordemProducao">Ordem de Produção</label>
-            </div>
+            </div> !-->
             <div class="input-field col s12">
                 <input type="text" name="codigo" id="codigo" placeholder="Digite o codigo do produto" maxlength="11">
                 <label for="codigo">Código do Produto</label>
@@ -53,7 +53,7 @@
                 <label for="quantidade">Quantidade</label>
             </div>
             <div class="input-field col s12">
-                <input type="text" name="user" id="user" value="<?php echo $_SESSION['nome']?>" placeholder="Digite o seu usuario" maxlength="30">
+                <input  readonly type="text" name="user" id="user" value="<?php echo $_SESSION['nome']?>" placeholder="Digite o seu usuario" maxlength="30">
                 <label for="user">Usuário</label>
             </div>
             <a href="ordemProducao.php" class="btn-flat">Voltar</a>
@@ -63,15 +63,14 @@
 </div>
 <?php
 if(isset($_POST['codigo'])) {
-    $ordemProducao  = addslashes($_POST['ordemProducao']);
     $codProduto     = addslashes($_POST['codigo']);
     $nomeCliente    = addslashes($_POST['nomeCliente']);
     $quantidade     = addslashes($_POST['quantidade']);
     $usuario        = addslashes($_POST['user']);
 
-    if(!empty($ordemProducao) &&!empty($codProduto) && !empty($nomeCliente) && !empty($quantidade) && !empty($usuario)) {
+    if(!empty($codProduto) && !empty($nomeCliente) && !empty($quantidade) && !empty($usuario)) {
         if($op->msgErro == "") {
-            if($op->cadastrarOP($ordemProducao,$codProduto,$nomeCliente,$quantidade,$usuario)) {
+            if($op->cadastrarOP($codProduto,$nomeCliente,$quantidade,$usuario)) {
                 ?>
                 <div class="msg msg-sucesso">
                     <h6><i class="small material-icons left ">check</i>Cadastrado com Sucesso!</h6>

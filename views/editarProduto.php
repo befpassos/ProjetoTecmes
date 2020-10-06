@@ -44,13 +44,12 @@ if(isset($_GET['codigo']) && !empty($_GET['codigo'])) {
         $nomeProduto = addslashes($_POST['nome']);
         if(!empty($nomeProduto)) {
             if($produto->editarProduto($cod,$nomeProduto)) {
-                header("refresh: 0.5");
                 ?>
                 <div class="msg msg-sucesso">
                     <h6><i class="small material-icons left ">check</i>Editado com Sucesso!</h6>
                 </div>
                 <?php
-                
+                echo '<script>window.location.href = produtos.php</script>';
                 //header("Location: editarProduto.php?codigo={$cod}");
                 
             }

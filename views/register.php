@@ -6,7 +6,7 @@
 <html lang="pt-br">
 <head>
     <meta charset="utf-8">
-    <title>LOGIN | TECMES</title>
+    <title>TECMES | Login</title>
     <?php include('../template/header.php') ?>
     <link rel="stylesheet" type="text/css" href="../assets/css/custom.css">
     <style>
@@ -77,7 +77,6 @@ if(isset($_POST['nome']))
                     <div class="msg msg-sucesso">
                         <h6><i class="small material-icons left ">check</i>Cadastrado com Sucesso!</h6>
                     </div>
-                    <a href="../index.php">Clique aqui para voltar a tela de login</a>
                     <?php
                 }else
                 {

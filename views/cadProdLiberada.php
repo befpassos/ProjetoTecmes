@@ -6,7 +6,7 @@
     $op = new OrdemProducao();
     $ordem = $_GET['ordemProducao'];
     $consulta_op_liberada = $prodLiberada->consultarOrdemProducao($ordem);
-    $consulta_op = $op->consultarOP();
+    $consulta_op = $op->consultarById($ordem);
     $ultima_ordem_fabricacao = $prodLiberada->consultarUltimaOrdemFabricacao($ordem) + 1;
 
 
